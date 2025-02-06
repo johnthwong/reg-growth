@@ -1,0 +1,581 @@
+---
+editor_options: 
+  chunk_output_type: console
+number-sections: true
+format: 
+  pdf:
+    documentclass: article
+    papersize: letter
+    geometry:
+      - margin=1.5in
+knitr:
+  opts_chunk: 
+    crop: false
+---
+
+\begin{center}
+\uppercase{\LARGE The Causal Effect of Regulations on Economic Growth: Evidence from the US States}
+
+\Large Patrick A. McLaughlin\textsuperscript{*} \hspace{0.5cm} John T.H. Wong$^{\#}$
+
+
+\normalsize \textsuperscript{*}Corresponding author
+
+\textit{Email address}: econpatrick@gmail.com
+
+Hoover Institution, Stanford University \\ 434 Galvez Mall Stanford University, Stanford, CA 94305-6003 
+
+\normalsize $^{\#}$Mercatus Center at George Mason University \\ 3434 Washington Blvd 4th Floor, Arlington, VA 22201-2019
+
+\end{center}
+
+
+> We exploit variation in stage age across US states to estimate the effect of regulation on economic growth. The number of regulatory restrictions is measured using QuantGov’s State RegData. The identification strategy is based on institutional sclerosis, the hypothesis that stable societies become stagnant over time as interest groups seek to impose restrictions on the economy, slowing its capacity to adapt to changing conditions. We find that a higher level of regulation’s exogenous component significantly reduces GDP growth. Specifically, a 10 percent increase in the number of regulatory restrictions causes GDP growth to fall by 0.37 percentage point. 
+
+\vfill
+
+*Keywords*: regulation; deregulation; economic growth; RegData; regulatory accumulation; institutional sclerosis.
+
+*JEL Codes*: C26, L51, O470.
+
+
+\newpage
+
+
+# Introduction {#sec-intro}
+
+Government regulation typically entails a tradeoff between achieving a regulatory goal and letting markets move toward economic efficiency. But until the past several years, the extent to which an economy is regulated, let alone regulation’s effect on economic growth, has been difficult to estimate. The two main issues constraining research in the literature had been, first, the absence of data that could directly capture the size and variation of regulations at each level of government. In contrast, this study leverages datasets that are generated from textual analysis programs and machine learning algorithms that quantify regulations at degrees of directness and scale not achieved by research in the past. The second issue had been that very few of the studies in the literature had identified an exogenous variation in regulatory levels, limiting their ability to infer a causal relationship. To that end, we draw on the institutional sclerosis hypothesis to justify the use of a given US state’s age as an instrumental variable. State age refers to the years since a US state’s most recent admission to the union. (The most recent admission date is used for Southern states readmitted after the Civil War.) This allows us to obtain an exogenous component of regulation.
+
+We find that a higher level of regulation reduces the growth of GDP at the state level. Specifically, a 10 percent increase in regulatory restrictions is estimated to cause GDP growth to fall by 0.37 percentage point---about one-seventh of a typical state’s annual GDP growth. This implies that moving across the interquartile range in restriction count (i.e., reducing regulatory restrictions by 42 percent) would increase aggregate GDP growth by 1.54 percentage points.
+
+Broadly defined, regulations are mandates that limit the domain of permissible actions of economic actors and that are ostensibly designed and implemented to achieve some specific outcomes. One view of regulation is that it is a policy vehicle for addressing market failures (such as externalities and information asymmetries) and maximizing social welfare. However, regulation can increase costs and subject potential entrants to barriers of entry. Opponents of regulations note that they entail compliance cost and can invite attempts to capture transfers, which redirect factors from their more productive uses.[^1] Stigler, for example, hypothesized that regulation is captured by industry and that, by producers’ monopolistic design, it is intended to restrict output.[^2]
+
+[^1]: Gordon Tullock, “Welfare Costs of Tariffs, Monopolies, and Theft,” *Western Economic Journal* 5, no. 3 (June 1967): 225–26.
+
+[^2]: George Stigler, “The Theory of Economic Regulation,” *Bell Journal of Economics and Management Science* 2, no. 1 (Spring 1971): 3–21.
+
+Olson argued that on top of individual regulations, the phenomenon of regulatory accumulation can exacerbate the aforementioned costs of regulation. When barriers to entry are ubiquitous, they can in general slow the rate at which resources are reallocated to more profitable sectors that spring up in response to technological change.[^3] Regulatory complexity increases the size of government required to enforce said rules, encourages allocation of legal resources to discover loopholes, creates specialists who lobby against simplification, and spawns further regulations.[^4] On a similar note, regulatory accumulation increases the likelihood of contradiction, which can lead to indeterminate evaluations of the legality of actions. Ambiguous laws require judicial interpretation, in turn creating rules that are more ad hoc and potentially more arbitrary.[^5]
+
+[^3]: Mancur Olson, *The Rise and Decline of Nations: Economic Growth, Stagflation, and Social Rigidities* (New Haven: Yale University Press, \[1982\], reprint edition 1984), 65–68.
+
+[^4]: Olson, Rise and Decline of Nations, 73–74.
+
+[^5]: Hillel Steiner, *An Essay on Rights* (Oxford: Blackwell, 1994): 81-85.
+
+The significance and magnitude of Olson’s hypothesis have been extensively tested, starting with evidence that Olson compiled with Kwang Choi. Olson and Choi found that a state’s founding year (i.e., the additive inverse of state age) is significantly predictive of declines in both aggregate and per capita income growth at the US state level between 1965 and 1978 and between 1946 and 1978. This result is particularly noteworthy, given that most US states were founded at least a century before the period for which income was measured.[^6] Furthermore, state age is positively and significantly correlated with one measure of interest group accumulation, specifically union membership as a percentage of employees (nonagricultural).[^7]
+
+[^6]: Olson, Rise and Decline of Nations, 104–6, 114.
+
+[^7]: Olson, Rise and Decline of Nations, 107–8.
+
+Subsequent scholars have also found evidence to reinforce the process of institutional sclerosis posited here. In a meta-analysis, Heckelman found that subsequent researchers generally concurred with Olson’s findings. The proportion of statistical studies (n = 28) that offer support, mixed support, and no support to institutional sclerosis, respectively, are 57 percent, 18 percent, and 25 percent[^8]---though it should be cautioned that the sample of studies surveyed all provide merely correlational evidence. Among studies that focused on US states and the role of interest groups, Vedder and Gallaway found that state age and union membership are significantly and negatively correlated with per capita income growth.[^9] Crain and Lee estimated a significantly negative relationship between the same outcome and business associations’ revenue as a share of income.[^10]
+
+[^8]: Jac C. Heckelman, “Explaining the Rain: *The Rise and Decline of Nations* after 25 Years,” *Southern Economic Journal*, 74, no. 1 (2007): 26, 29.
+
+[^9]: Richard Vedder and Lowell Gallaway, “Rent-Seeking, Distributional Coalitions, Taxes, Relative Prices and Economic Growth,” *Public Choice* 51, no. 1 (1986): 96.
+
+[^10]: W. Mark Crain and Katherine J. Lee, “Economic Growth Regressions for the American States: A Sensitivity Analysis,” *Economic Inquiry* 37, no. 2 (April 1999): 253. Because of its problematic specifications of interest group power, we omit another study that examined US states and interest groups without generating supporting evidence: Virginia Gray and David Lowery, “Interest Group Politics and Economic Growth in the U.S. States,” *American Political Science Review* 82, no. 1 (1988): 109–31.
+
+This paper also contributes to the regulatory literature. Dawson and Seater made one of the first attempts to directly measure the quantity of regulations.[^11] Before Dawson and Seater, most studies resorted to using indices of regulatory severity (either self-constructed or constructed by organizations such as the Organisation for Economic Co-operation and Development, or OECD),[^12] which can limit the scope of regulation evaluated (to only those such as licensing requirements, product safety requirements, or employee health and safety) or the number of industries considered, in addition to introducing measurement errors. Dawson and Seater captured the growth of the Code of Federal Regulations by using page counts, creating a single time series of regulatory accumulation for federal regulations. Running simulations with an endogenous growth model, the authors estimated that if the pages of regulations had been unchanged since 1949, the economy would have grown 2.2 percentage points more annually—or an increase of \$38.8 trillion to GDP by 2011.[^13]
+
+[^11]: John W. Dawson and John J. Seater, “Federal Regulation and Aggregate Economic Growth,” *Journal of Economic Growth* 18, no. 2 (June 2013): 137–77.
+
+[^12]: For example, see Norman V. Loayza, Ana María Oviedo, and Luis Servén, “Regulation and Macroeconomic Performance” (Policy Working Paper 3469, World Bank, Washington, DC, September 2004).
+
+[^13]: Dawson and Seater, “Federal Regulation and Aggregate Economic Growth,” 160.
+
+In one of the first applications of RegData, Bailey and Thomas investigated the effect of regulation as a potential “cost” to the economy by examining three metrics of entrepreneurship: firm births, firm deaths, and new hires.[^14] (RegData will be described in more detail in @sec-data.) The study also examined whether varying levels of regulation affect these entrepreneurship outcomes differently for small firms than for large firms. Overall, they found a small but statistically significant negative relationship between regulation and entrepreneurship, with some of the effects more pronounced for small firms compared to large firms.
+
+[^14]: James B. Bailey and Diana W. Thomas, “Regulating away Competition: The Effect of Regulation on Entrepreneurship and Employment,” *Journal of Regulatory Economics* 52, no. 3 (2017): 237–54.
+
+Coffey, McLaughlin, and Peretto, meanwhile, built upon the initial Dawson and Seater approach. Using industry-specific regulatory data from RegData, Coffey, McLaughlin, and Peretto specified an endogenous growth model in which (1) growth depends on lagged knowledge investment and its interaction with regulation, and (2) knowledge investment depends on past growth and regulation.[^15] Exploiting variation in the level of regulation across industries and over time, they found that the economy would have grown 0.8 percentage points more annually if federal regulation had remained at 1980 levels—or a \$4 trillion increase to GDP by 2012.[^16]
+
+[^15]: Bentley Coffey, Patrick A. McLaughlin, and Pietro Peretto, “The Cumulative Cost of Regulations,” *Review of Economic Dynamics* 38 (2020): 1–21.
+
+[^16]: Coffey et al., “Cumulative Cost of Regulations,” 14–15.
+
+More recently, Coffey and McLaughlin studied the case of regulatory budgeting in British Columbia, Canada, which reduced its count of regulations by just over one-third in three years.[^17] The authors found that a 10 percent increase in regulatory stringency (i.e., a restriction count weighted by industry relevance) is associated with a 0.25 percentage point decrease in GDP per capita.[^18] There was additional causal evidence from a difference-in-differences synthetic control setup, which found that the reform (of reducing regulations by one-third) increased growth by 1.4 percentage points.[^19] However, the latter is estimated with a difference-in-differences setup that, although it did exploit a natural experiment and a synthetic control, ultimately relied on discrete rather than continuous variation in levels of regulation across province and time and the assumptions required of difference-in-differences estimation (e.g., parallel trends and no confounding events). This illustrates the difficulty of designing a study in which the shift in regulatory stringency (1) is exogenous and (2) can be measured with a continuous measure of regulation like RegData. To this end, we introduce the concept of institutional sclerosis, which we argue provides a source of exogenous variation in regulation.
+
+[^17]: Bentley Coffey and Patrick A. McLaughlin, “Regulation and Economic Growth: Evidence from British Columbia’s Experiment in Regulatory Budgeting” (Mercatus Working Paper, Mercatus Center at George Mason University, May 2021).
+
+[^18]: Coffey and McLaughlin, “Regulation and Economic Growth,” 36.
+
+[^19]: Coffey and McLaughlin, “Regulation and Economic Growth,” 35.
+
+Coffey and McLaughlin make important points not only about the potential growth effects of regulatory accumulation or red tape reduction, but also about the possibility that regulations do not have to correlate with population or the amount of economic activity in a given jurisdiction.[^20] Other research has demonstrated a fairly robust correlation between state population and the quantity of regulation,[^21] and between industry size and the quantity of federal and state regulation.[^22] Coffey and McLaughlin as well as Jones and McLaughlin present the counterargument that such correlations are not an obligatory byproduct of economic growth but instead a result of inattention to regulatory accumulation by policymakers.[^23]
+
+[^20]: Coffey and McLaughlin, “Regulation and Economic Growth.”
+
+[^21]: James Bailey, James Broughel, and Patrick A. McLaughlin, “Larger Polities Are More Regulated,” *Journal of Public Finance and Public Choice* 36 (2021): 233–43.
+
+[^22]: Marc T. Law and Patrick A. McLaughlin, “Industry Size and Regulation: Evidence from US States,” *Public Choice* 192 (2022): 1–27.
+
+[^23]: Coffey and McLaughlin, “Regulation and Economic Growth”; Laura Jones and Patrick A. McLaughlin, “Measurement Options for Regulatory Budgeting,” *Harvard Journal of Law and Public Policy Per Curiam* 1, no. 25 (2022): 43–60.
+
+The paper proceeds as follows. In @sec-model, we describe the main model being estimated and its structural implications. @sec-data describes the datasets on which this study relies. The results are shown in @sec-results. @sec-robust covers various robustness tests. @sec-mechanism offers some discussion on how regulation drives growth. @sec-conclusion concludes.
+
+```{r}
+#| echo: false
+#| include: false
+knitr::read_chunk("code.R")
+```
+
+```{r packages}
+#| echo: false
+#| include: false
+```
+
+```{r import}
+#| echo: false
+#| include: false
+```
+
+```{r merge}
+#| echo: false
+#| include: false
+```
+
+# A model of sclerosis {#sec-model}
+
+Olson offered the institutional sclerosis hypothesis to explain why affluent societies become stagnant with time. The main components of his hypothesis are as follows:[^24]
+
+[^24]: Olson, Rise and Decline of Nations, 76.
+
+> 1.  Stable societies with unchanged boundaries tend to accumulate more collusions and organizations for collective action over time.
+
+> 2.  On balance, special-interest organizations and collusions reduce efficiency and aggregate income in the societies in which they operate and make political life more divisive.
+
+> 3.  Distributional coalitions slow down a society's capacity to adopt new technologies and to reallocate resources in response to changing conditions, and thereby reduce the rate of economic growth.
+
+We formalize the first hypothesis by modeling restrictions as a function of state age:
+
+$$
+R_{it} = e^{\theta_0 + \theta_1(t - T_i) + \vec w_i \vec \gamma + \eta_{it}}.
+$$
+
+-   $t$ denotes current period and $T_i$ is the period where stability initiates for state $i$, i.e., the period in which a state $i$ joins the United States. $t - T_i$, then, is state age.
+-   $\theta_0$ is a scalar which adjusts the "inflection point" at which restrictions begin to accumulate. The higher its value, the sooner this point is.
+-   $\theta_1$ is a scalar which adjusts the slope of the $R_t$ with respect to time.
+-   $\vec w_{i}$ is a vector of time-invariant observable determinants of regulation, which are scaled by $\vec \beta$.
+-   $\eta_{it}$ is an iid normal error term.
+
+This restrictions function implies that:
+
+$$
+\ln R_{it} = \theta_0 + \theta_1 (t - T_i) + \vec w_i \vec \gamma + \eta_{it},
+$$ {#eq-logR-age}
+
+which provides us with the first-stage equation for estimating restrictions on state age.
+
+This corresponds to a linear second-stage equation of output growth on the exogenous component of $\ln R_{it}$:
+
+$$
+\frac{d Y_{it}/dt}{Y_{it}} = \alpha_0 + \alpha_1 \ln R_{it-2} + \vec w_i \vec \beta + u_{it}.
+$$ {#eq-output-logR}
+
+-   $Y_{it}$ denotes output at time $t$ for state $i$.
+-   $R_{t-2}$ is the level of restrictions two periods (i.e., years) before period $t$. The lag is meant to reflect that regulatory accumulation, insofar as it has any effect, requires time to permeate into economic activity.
+-   $u_{it}$ contains a vector of $K$ unobserved covariates that are correlated with $\ln R_{t-2}$ and an iid normal error, i.e.,
+
+$$
+u_{it} \equiv \sum_{k=1}^K v_{kit} \delta_k + \epsilon_{it}.
+$$ {#eq-u}
+
+Note that this formalizes Olson's third hypothesis, which suggests that $\alpha_1 < 0$. Before we proceed, we want to evaluate the model implicitly assumed by @eq-output-logR. We do so by substituting @eq-logR-age into @eq-output-logR:
+
+$$
+\frac{d Y_{it}/dt}{Y_{it}} = \alpha_0 + \alpha_1 [\theta_0 + \theta_1 (t - T_i - 2) + \vec w_i \vec \gamma + \eta_{it}] + \vec w_i \vec \beta + u_{it}
+$$
+
+$$
+= (\alpha_0 + \alpha_1 \theta_0) + \alpha_1\theta_1 (t - T_i - 2) + \vec w_i(\alpha_1  \vec \gamma +  \vec \beta )+  (u_{it} + \alpha_1 \eta_{it})
+$$ {#eq-reduced-form}
+
+This provides us with a closed-form function of time on the right-hand side that we can integrate with respect to $t$:
+
+$$
+\begin{aligned}
+\int \frac{1}{Y_{it}}d Y_{it} = \int \alpha_1 \theta_1 t + \alpha_0 + \alpha_1\theta_0 - \alpha_1\theta_1 (T_i + 2) + \vec w_i (\alpha_1 \vec \gamma + \vec \beta) + \alpha_1 \eta_{it} + u_{it} dt
+\\ \implies \ln Y_{it} + c_1 = t^2 \frac{\alpha_1 \theta_1}{2} +  t[\alpha_0 + \alpha_1\theta_0 - \alpha_1\theta_1 (T_i + 2) + \vec w_i (\alpha_1 \vec \gamma + \vec \beta)] 
+\\ + t(\alpha_1 \eta_{it} + u_{it}) + c_2
+\end{aligned}
+$$
+
+$$
+\implies Y_{it} = Y_0 \underbrace{e^{t^2 \frac{\alpha_1 \theta_1}{2} +  t[\alpha_0 + \alpha_1\theta_0 - \alpha_1\theta_1 (T_i + 2) + \vec w_i (\alpha_1 \vec \gamma + \vec \beta)] } }_{f(t, T_i, \vec w_i)} e^{(\alpha_1 \eta_{it} + u_{it})t}.
+$$ {#eq-Y-t}
+
+where $Y_0 \equiv e^{c_2 - c_1}$. The output function implied by the second-stage equation is a standard exponential growth model with a base constant $Y_0$.
+
+Plugging @eq-u into @eq-Y-t:
+
+$$
+\begin{aligned}
+Y_{it} = Y_0 \cdot e^{(\sum_{k=1}^K v_{kit} \delta_k)t} \cdot f(t, T_i, \vec w_i) \cdot e^{(\alpha_1 \eta_{it} + \epsilon_{it} )t },
+\end{aligned}
+$$
+
+We can expand the $Y_0 \cdot e^{(\sum_{k=1}^K v_{kit} \delta_k)t}$ as follows:
+
+$$
+\begin{aligned}
+Y_0 e^{(\sum_{k=1}^K v_{kit} \delta_k)t} = Y_0 \times (e^{v_{1it} \cdot t})^{\delta_1} \times (e^{v_{2it} \cdot t})^{\delta_2} \times \dots \times (e^{v_{Kit} \cdot t})^{\delta_K}.
+\end{aligned}
+$$
+
+If we assume that $Y_0$ is a Cobb-Douglas function of $K$ initial factors of production ($V_{10}, V_{20}, \dots, V_{K0}$) common to all states, respectively exponentiated by $\delta_1, \delta_2, \dots, \delta_K$, i.e.,
+
+$$
+Y_0 = \prod_{i = k} V_{k 0}^{\delta_k}.
+$$
+
+That in turn implies:
+
+$$
+Y_0 e^{(\sum_{k=1}^K v_{kit} \delta_k)t} = \underbrace{(V_{10} \cdot e^{v_{1it} \cdot t}) }_{V_{1it}} \ ^{\delta_1} \times \underbrace{(V_{20} \cdot e^{v_{2it} \cdot t}) }_{V_{2it}} \ ^{\delta_2} \dots \times \underbrace{(V_{K0} \cdot e^{v_{Kit} \cdot t}) }_{V_{Kit}} \ ^{\delta_K},
+$$
+
+which are just standard forms assumed for time-variant factors of production. Under these assumptions about the constant of integration, each $v_{kit}$ is the state $i$'s time-variant continuous-compounding growth rate for factor $k$, i.e., the factor's average growth rate in state $i$. $[\delta_1 \ \delta_2 \ \cdots \ \delta_K]$ are state- and time-invariant output elasticities to inputs.
+
+This means that our 2SLS setup implies a Cobb-Douglas output function, scaled by a input-neutral function of state age and an error term:
+
+$$
+Y_{it} = f(t, T_i, \vec w_i) \times V_{1it}^{\delta_1} \times V_{2it}^{\delta_2} \times \dots \times V_{Kit}^{\delta_K} \times e^{(\alpha_1 \eta_{it} + \epsilon_{it} )t }.
+$$
+
+If the assumptions about the constant of integration holds, we can interpret the 2SLS exogeneity condition as:
+
+$$
+\mathrm{Cov}(T_i | \vec w_i, v_{kit}) = 0, \ \text{for all} \ k\text{-th factor parameters}.
+$$
+
+i.e., that the period of admission for state $i$, given time-invariant determinants of admission, is uncorrelated with the average growth rate of typical factors of production, such as capital, in that state.
+
+# Data {#sec-data}
+
+@tbl-summary-stat reports summary statistics.
+
+```{r tbl-summary-stat}
+#| tbl-cap: "Summary statistics"
+#| results: asis
+#| echo: false
+```
+
+```{r ols}
+#| echo: false
+#| include: false
+```
+
+$R_{it}$ is measured as the restriction count of a given state $i$ in year $t$. A measure of state-level regulations is provided by QuantGov's State RegData 2023.[^25] RegData measures the *count* of *restrictions* in each state's regulatory codes *and* statutes, at the document level. Not every line of regulation constitutes a restriction. Instead, each occurrence of one of five specific restrictive phrases---namely 'shall', 'must', 'may not', 'required', 'prohibited'---counts as one restriction. We aggregate restrictions at the state level, creating a sample of `r nrow(df34)` observations for our main specification. This provides us with a snapshot of most states' restrictions within each year, from 2021 to 2023.
+
+[^25]: Patrick A. McLaughlin et al., “State RegData 2023” (dataset), QuantGov, Mercatus Center at George Mason University, 2023.
+
+The count of regulatory restrictions vary widely across states, with a mean of `r scales::comma(round(mean(df34$restrictions_2L), 0))` and values ranging between `r scales::comma(min(df34$restrictions_2L))` and `r scales::comma(max(df34$restrictions_2L))`. @fig-reg-density shows that the distribution of restriction count is skewed to the right. For this reason, we use a log-transformation of restriction count as the main treatment variable. This will help enforce homoskedasticity when we are estimating @eq-logR-age. Additionally, by emphasizing variation at lower values, log-transformation has the desirable property of implementing the assumption that regulatory accumulation matters more at the lower levels. This is the idea that moving from 400,000 to 500,000 restrictions may have far less of an effect than from 100,000 to 200,000. We test this assumption later.
+
+```{r fig-reg-density}
+#| fig-cap: "Density of restriction count and log of restriction count"
+#| echo: false
+#| message: false
+#| warning: false
+```
+
+We measure $Y_{it}$ as the chained real GDP of a given state $i$ in year $t$ (quarter 1).[^26][^27] The series is pulled from the US Bureau of Economic Analysis's National Income and Product Accounts (BEA-NIPA).[^28] Specifically, we estimate the first differences of log output, which gives the one period continuous compounding growth rate of GDP. In our main setup, we regress GDP growth from $t − 1$ to $t$ on restriction count in $t-2$.[^29] The lag is meant to reflect that regulatory accumulation, insofar as it has any effect, requires time to permeate into economic activity. Later, we relax this assumption and allow regulations to have a more instantaneous effect.
+
+[^26]: We use Q1 GDP levels because it is the most recent as of writing.
+
+[^27]: In alternative specifications, we explored using personal income as the dependent variable and reached qualitatively similar results. However, those analyses did not correct for regional purchasing parities, which other researchers show to have dramatic effect on the bottom 10 percent of income distributions across regions. For more, see Vincent Geloso and Youcef Msaid, “Adjusting Inequalities for Regional Price Parities: Importance and Implications,” *Journal of Regional Analysis and Policy* 48, no. 4 (2018): 1–8, and Justin T. Callais and Jamie Bologna Pavlik, “Does Economic Freedom Lighten the Blow? Evidence from the Great Recession in the United States,” *Economics of Governance* 24 (2023): 357–98. Since our main focus is GDP growth, we leave exploration of income effects to future research.
+
+[^28]: US Bureau of Economic Analysis, “Table: SQGDP9 Real GDP in Chained Dollars,” BEA Data API, accessed September 2, 2024.
+
+[^29]: Note that, as mentioned, we are using the sum of regulatory restrictions contained in both state administrative codes and state statutes.
+
+We are also more interested in the growth of GDP than that of per capita GDP. This is because even if regulation affects efficiency and raises per-capita income growth, this increase may eventually dissipate as net migration to the state increases. Aggregate GDP growth is intended to capture both per-capita income and population dynamics.
+
+```{r tbl-state-count}
+#| echo: false
+#| include: false
+```
+
+Our data is an unbalanced panel, including one year of observations for `r tbl_state_count$count[1]` states and two years of observations for `r tbl_state_count$count[2]` states.
+
+$T_i$ is the admission year of state $i$ to the United States, with the exception of Southern states, where the variable is defined as years since their re-admission to the US in 1868, as the Civil War (in addition to reconstruction) likely disrupted or inhibited the development of interest groups.[^30] @fig-age-dist shows the distribution of state age.
+
+[^30]: Olson, Rise and Decline of Nations, 98.
+
+```{r fig-age-dist}
+#| fig-cap: "Histogram of state age in 2024"
+#| echo: false
+#| message: false
+#| warning: false
+```
+
+Before we proceed, we should note that in addition to being structurally motivated, state age is a very plausible instrument for regulatory restrictions. First, it is difficult to conceive how state age, other than through the channel of institutional sclerosis, can affect present economic growth.
+
+Second, we control for potential determinants of statehood ($\vec w_i$) and we will show below that these covariates are not significant in either the first or second stage. The vector includes a state’s population recorded on the decennial census subsequent to statehood. This is because early population could have been driven by early industrial activity that has some persistent effect on current growth. In addition, territories seeking statehood had to meet population requirements (though they may not necessarily be set at a level that is binding).
+
+We also include the geographical area of a state at admission. The concern there is that longer travel distances within a state can increase the cost to organize, which in turn can affect our endogenous variable. Both admission dates and state' early characteristics are provided by the US Census Bureau's Historical Statistics of the United States (HSUS).[^31].
+
+[^31]: Susan B. Carter et al., “Historical Statistics of the United States: Millennial Edition” (dataset), Cambridge University Press, 2006, originally published by the US Census Bureau, https://hsus.cambridge.org/HSUSWeb/HSUSEntryServlet.
+
+The final way we provide evidence for exogeneity is through overidentifying the 2SLS model, so as to conduct a J-test for instrument exogeneity. Relying on the same sclerosis hypothesis, we identify year of initial constitution and Euclidean distance to D.C. as additional instruments.[^32] As we will show below as well, the hypothesis that instruments are exogenous cannot be rejected.
+
+[^32]: Julia G. Clouse, “Converting the Texts of the U.S. State Constitutions into Quantifiable Data: A Text Analytics Project” (dissertation, George Mason University, 2019); US Census Bureau, “Geographic Areas Reference Files: 2010 Census State Area” (dataset), 2010.
+
+```{r tsls}
+#| echo: false
+#| include: false
+```
+
+# Results {#sec-results}
+
+## Yearly growth
+
+The 2SLS results are reported in @tbl-tsls. Column 1 reports the results from a simple ordinary least squares (OLS) regression of the outcome on log of restriction count. Consistent with the motivation for our identification strategy, log of restriction count as a predictor is not statistically significant.
+
+```{r tbl-tsls}
+#| tbl-cap: "Estimating GDP growth on restrictions, OLS versus 2SLS with state age"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+```
+
+Moving onto the 2SLS first-stage results in Column 2, we see that state age is significant at the 1 percent level as a predictor for log of restriction count---which offers support to state age being a relevant instrument. Column 4 estimates a first-stage equation with controls for state age. Population around the time of admission nor geographical area have significance---assuaging concerns about the endogeneity of state age.
+
+In line with expectations, older states experience higher levels of restrictions. This is illustrated in as @fig-treatment-instrument. The color of each observation is mapped to economic growth from $t-1$ to $t$ (lighter indicates higher growth), whereas restriction count is that from $t-2$. It is immediately observable that states admitted more recently, in addition to having fewer restrictions, tend to exhibit higher growth today.
+
+```{r fig-treatment-instrument}
+#| fig-cap: "Log-scale restrictions versus state age with color gradient representing present GDP growth"
+#| echo: false
+#| message: false
+#| warning: false
+```
+
+The second-stage results---Column 3---are encouraging as well. The exogenous component of treatment is statistically significant at the 5 percent level. A higher level of regulation reduces real GDP growth. The significance level holds, and magnitude increases, when controls are added (Column 5). The magnitude of the coefficient is `r round(iv30$coefficients[2]/lm15$coefficients[2], 0)`-times larger than that in Column 1, consistent with our suspicion that a simple OLS estimation captures upward bias. The estimate from Column 5 implies that a 10 percent increase in restrictions will change GDP growth by $\beta\cdot\frac{dReg}{Reg} =$ `r 100*0.1*round(iv30$coefficients["log(restrictions_2L)"], 4)` percentage point. This is rather significant as states' GDP on average grew `r 100*round(mean(df34$gdp_chained_1yrchg), 4)` percent, which would make our estimate about one-seventh of yearly growth. For an alternative interpretation: moving across the interquartile range in restriction count (i.e., reducing restrictions by `r 100*round(1 - quantile(df34$restrictions_2L, 0.25)/quantile(df34$restrictions_2L, 0.75), 4)` percent, or `r scales::comma( quantile(df34$restrictions_2L, 0.25) - quantile(df34$restrictions_2L, 0.75) )` restrictions) would increase real GDP growth by `r 100*round((quantile(df34$restrictions_2L, 0.25)/quantile(df34$restrictions_2L, 0.75) - 1)*iv30$coefficients["log(restrictions_2L)"], 4)` percentage points.
+
+```{r ar_test}
+#| echo: false
+#| include: false
+```
+
+The *F*-statistic is above 10 under the parsimonious specification (Column 2), but it falls below 10 as controls are added (Column 4). To address concerns about the instrument's relevance, we run the Anderson-Rubin test for 2SLS models, which is designed to perform inference on the treatment's coefficient in the presence of a weak instrument. The test statistic is statistically different from zero ($p$ = `r round(0.001073672, 4)`). The 95 percent confidence interval for the estimated coefficient is \[`r paste(as.numeric(round(ar1$ci, 4)), collapse = ", ")`\]. This puts even the weaker end of the interval below zero, confirming our exogenous component of regulation as a significant and relevant predictor.
+
+## Long-term growth
+
+```{r reduced-form}
+#| echo: false
+#| include: false
+```
+
+We also examined whether the effect of restrictions on growth hold when growth is considered over a longer horizon. Unfortunately, given that the earliest RegData statutes are available only from 2021 (and RegData regulation from 2020), we cannot replicate the same results for earlier years. Instead, we offer some suggestive evidence by estimating the reduced form model,[^33] i.e., @eq-reduced-form.
+
+[^33]: For clarity, by reduced form model, we mean the a second-stage 2SLS equation where the treatment variable is substituted with the first-stage equation.
+
+We compute the average continuous-compounding growth rate from the earliest year in which state GDP is available (2005Q1) to the latest (2024Q1). This gives a cross-section of 48 states in our main sample. The drawback of this method is that the estimated coefficient on state age is the product $\alpha_1 \theta_1$, which we cannot decompose since we do not know $R_{2004}$. The following results essentially replicate Olson's tables, but with updated output data.
+
+```{r tbl-reduced-form}
+#| tbl-cap: "Estimating long-term GDP growth on state age"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+```
+
+@tbl-reduced-form shows that at least the product of our two coefficients of interest are statistically significant at the 5 percent level. This tells us that Olson's main finding---that older states grow slower---holds even for the most recent two decades. States which are in the third quartile in terms of age on average grew `r abs( round( (quantile(df40$age_2005, 0.75) - quantile(df40$age_2005, 0.25))*lm53$coefficients[2]*100, 2) )` point slower per year, compared to those in the first quartile.
+
+# Robustness {#sec-robust}
+
+## Stage age specification
+
+In this section, we discuss results obtained under alternative specifications of state age, shown in @tbl-tsls-2. Generally, the results are robust. Columns 1 and 2 respectively show the first- and second-stage results when year fixed effects are included. The motivation here is that state age ($t - T_i$) is a linear equation of time. While we did not explicitly impose any structure on the error term $\eta_{it}$ with respect to $\eta_{it-1}$, state age would correlate with the errors in the case where they are autoregressive. Only one factor is added since $t = 2023, 2024$. While the magnitude falls in the first-stage, second-stage results are essentially indistinguishable for @tbl-tsls Column 5. Following the same motivation, results in Columns 3 and 4 are estimated with $T_i$ as an instrument. Since $T_i$ is time-invariant, the first-stage predictions becomes a within-state mean of $\ln R_t$. Either specifications produce the same result.
+
+Out of concern for the way Olson defines state age for Southern states, we develop an alternative definition to test the robustness of our results. Specifically, we define a second variant of state age that is equivalent to $t - \tilde T$, where $\tilde T$ is the period when a state enters the United States for the first time. This specification essentially assumes that the Civil War did not interrupt interest group formation. Columns 5 and 6 show that our model from @tbl-tsls is robust to this alternative definition of state age, with coefficient estimates for state age and log of restriction count being almost unchanged from @tbl-tsls.
+
+```{r tbl-tsls-2}
+#| tbl-cap: "Estimating GDP growth on restrictions, alternative state age"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+```
+
+## Overidentification
+
+```{r j_test}
+#| echo: false
+#| include: false
+```
+
+To offer evidence on instrument exogeneity, we now conduct a J-test by overidentifying the first-stage equation, i.e., by including more instruments than endogenous variables. In an overidentified model, not all instruments can be perfectly correlated with the endogenous variables (and thus the second-stage residuals). This in turn allows us to test whether 2nd-stage residuals are correlated with our instruments.
+
+We turn to two additional instruments. The first is the year in which a given state's first constitution was ratified (or "year of initial constitution"), collected by Clouse.[^34] The reasoning behind using year of initial constitution is similar to that of state age: a constitution provides a framework for stability that makes organizing, capture, and sclerosis possible. In fact, 27 states saw the establishment of a constitution prior to statehood. The series is therefore largely independent from state age (this is particularly true for Southern states, which by our definition are much younger).
+
+[^34]: Clouse, “Converting the Texts of the U.S. State Constitutions.”
+
+The second is the Euclidean distance between a state’s coordinates and that of Washington, DC, in the latitude-longitude space. This measure gives us an approximation of a state’s distance from the capital. The two key ideas here are that the interaction between where a state ends up being located and Washington's location is as good as random, but that once both are established, nearness to Washington implies more organizing activity that in turn promotes statehood and sclerosis down the road.
+
+@tbl-j-test shows the results. The J-test is implemented by running the second-stage residuals (from an overidentified 2SLS estimation) onto the same set of instruments and control variables. Note that the null hypothesis is that the instruments are jointly exogenous. Thus, a significant J-statistic indicates that the instrumental variables are correlated with the estimated error terms. Column 1 uses both state age and year of initial constitution as instruments, while column 2 uses all three variables. Under both specifications, joint exogeneity cannot be rejected. While the J-statistic in the latter case does increase in significance, the null still cannot be rejected at the 10 percent level. This suggests the main instrument is in fact exogenous.
+
+```{r tbl-j-test}
+#| tbl-cap: "Overidentifying restrictions test (J-test)"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+```
+
+## Different lag specifications
+
+```{r lag}
+#| echo: false
+#| include: false
+```
+
+In our main model, we lag restriction count by two periods. We now test other lag specifications. @tbl-lag shows the 2SLS 2nd stage results when different lags are used. Three results are worth highlighting. First, the Lag-1 specification is just as significant as our baseline specification (Lag-2). Second, the Lag-0 specification, which can be thought of as a placebo measure of regulation, since regulation at $t$ (which may have been added to RegData mid-year) has little to no overlap with economic activity from the first quarters of $t-1$ to $t$. As expected, its exogenous component is not a significant predictor of growth. Finally, including restriction levels from two years leads both to become insignificant predictors (Columns 4, 5). This is not surprising, as restriction levels, between-years and within-state, should be highly collinear.
+
+```{r tbl-lag}
+#| tbl-cap: "Estimating GDP growth on varying lags on restrictions, 2SLS"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+```
+
+## Different restriction specifications
+
+```{r linearization}
+#| echo: false
+#| include: false
+```
+
+In @sec-data, we noted that we prefer $\ln R_{t-2}$ as our endogenous variable because it is approximately normal and implements the idea that at high levels of restrictiveness, one additional regulation would have less impact than if a state were less regulated. We relax this assumption by running our baseline specification, with the treatment defined as either the restriction count in levels ($R_{t-2}$) or its square ($R^2_{t-2}$).
+
+@tbl-linearization presents the 2SLS second-stage results and Column 1 shows the baseline estimate. Columns 2 and 3 confirm that the significance of our results is not affected by how we transform restriction count. In fact, the exogenous component of squared restriction count is statistically more significant than our baseline specification. However, given that both alternative transformations have lower *F*-statistics, we prefer the baseline log-transformation, under which state age is a more relevant instrument.
+
+```{r tbl-linearization}
+#| tbl-cap: "Estimating GDP growth on varying specifications of restrictions, 2SLS"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+```
+
+## Geography as placebo instrument
+
+```{r placebo}
+#| echo: false
+#| include: false
+```
+
+One potential concern is that state age is simply proxying for region-based growth in Western or Southern states. What the results indicate then in fact is not institutional sclerosis, but some spurious correlation between region, regulation, and growth. If this is true, we might see even stronger results when we directly use geography as a placebo instrument. As @tbl-placebo shows however, this is not the case. Log of restriction count as a treatment loses significance when we use latitude or longitude (or both) as instruments. In other words, state age meaningfully captures variation that cannot be explained through the region to which a state belongs.
+
+```{r tbl-placebo}
+#| tbl-cap: "Estimating GDP growth on restrictions, 2SLS with geography"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+```
+
+## Leave-one-out test
+
+```{r leave-one-out}
+#| echo: false
+#| include: false
+```
+
+To address concerns that our results are driven by a small number of states in our sample, we conduct a non-parametric test of robustness by omitting one state from our sample and re-estimating our main parameter of interest, $\alpha_1$. The magnitude of the coefficients are roughly similar, ranging from \[`r round(min(results_1$estimate), 3)`, `r round(max(results_1$estimate), 3)`\]. The significance level under each iteration largely does not change except for when Idaho or Illinois is omitted, which reduces the significance level, albeit only to the 10 percent level in each case.
+
+```{r fig-leave-one-out}
+#| fig-cap: "Leave-one-out results"
+#| echo: false
+#| message: false
+#| warning: false
+```
+
+# Growth mechanisms {#sec-mechanism}
+
+Recall that in @sec-model, we showed that our 2SLS setup implies a Cobb-Douglas production function. However, we did not specify an interpretation for $f(\cdot)$, which at first glance appears to be a function for total factor productivity. However, it is better interpreted as a composite function of productivity and population levels. This is because, as we stated in @sec-data, any sclerosis-driven changes to per-capita income will dissipate in equilibrium as residents move to higher growth states. Though we do not attempt to formally disentangle $f(\cdot)$, we can show that population and regulatory dynamics are connected.
+
+One way to test whether regulation drives population is to use per-capita growth as our outcome of interest. Suppose that population ($N$) is outside of $f(\cdot)$ (and uncorrelated with $T_i$ by assumption). For notational purposes, suppose $V_{1it}$ was actually $N_{it}$. We can easily show that:
+
+$$
+\begin{aligned}
+\frac{Y_{it}}{N_{it}} = f(t, T_i, \vec w_i) \times N_{it}^{\delta_1 - 1} \times V_{2it}^{\delta_2} \times \dots \times V_{Kit}^{\delta_K} \times e^{(\alpha_1 \eta_{it} + \epsilon_{it} )t }
+\\ \implies \frac{d (Y_{it}/N_{it})/dt}{Y_{it}/N_{it}} = \alpha_0 + \alpha_1 \ln R_{it-2} + \vec w_i \vec \beta + v_{1it}(\delta_1 -1) + \sum_{k=2}^K v_{kit} \delta_k + \epsilon_{it},
+\end{aligned}
+$$
+
+i.e., our estimate of $\alpha_1$ should not change when a per-capita measure of output growth is used.
+
+But @tbl-per-capita indicates that this is not the case. Column 1 shows the baseline estimate from @tbl-tsls for comparison. Column 2 shows that when we use the same specification but substitute in per-capita GDP growth as the outcome, our estimate of $\alpha_1$ loses significance.
+
+```{r tbl-per-capita}
+#| tbl-cap: "Estimating GDP growth on restrictions, aggregate versus per-capita"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+```
+
+```{r olley-pakes}
+#| echo: false
+#| include: false
+```
+
+Using State RegData, we can offer some more suggestive evidence that population dynamics are key to lower aggregate growth. Drawing on aforementioned literature that larger polities have more regulation, let us first define a measure of regulatedness,
+
+$$
+r_{it} \equiv R_{i,t-2}/N_{it},
+$$
+
+For the country as a whole, the regulatedness imposed by state-level restrictions is then (from here on, we suppress time subscripts):
+
+$$
+r = \frac{\mathrm E(R_{i})}{\mathrm E(N_{i})}
+$$
+
+We can then conduct Lippi and Perri's version of an Olley-Pakes decomposition:[^35]
+
+[^35]: Francesco Lippi and Fabrizio Perri, "Unequal growth," *Journal of Monetary Economics* 113 (2023): 1-18.
+
+$$
+r = \mathrm E [\frac{R_i}{N_i} \cdot \frac{N_i}{\mathrm E(N_i)}]  \equiv \mathrm E (r_{i} \cdot n_i),
+$$
+
+where $n_i \equiv N_i/\mathrm E(N_i)$.
+
+We now introduce the definition of covariance:
+
+$$
+\begin{aligned}
+\mathrm {Cov}(r_i, n_i) = \mathrm E(r_i \cdot n_i) - \mathrm E(r_i) \underbrace{\mathrm E(n_i)}_{=1}
+\\ \implies r = \mathrm{Cov}(r_i, n_i)  + \mathrm E(r_i).
+\end{aligned}
+$$
+
+If higher regulatedness leads to lower growth and state residents respond by migrating, it should be that $\mathrm{Cov}(r_i, n_i) < 0$. For ease of interpretation, we can decompose $r$ once more such that:
+
+$$
+r = \mathrm{Corr}(r_i, n_i) \sigma_{r_i} \sigma_{n_i} + \mathrm E (r_i)
+$$
+
+@tbl-olley-pakes shows the results of this exercise. We can see that covariance is consistently negative for both years in our sample, which suggests that residents are distributed in the opposite direction of population-adjusted regulatory levels. Another way of interpreting the covariance is that aggregate state-level regulatedness is alleviated by interstate population movements. The correlation coefficients indicate that the two variables have a moderately negative correlation. Thus, it appears that the negative effects of restrictions on growth are driven in some substantial part by population dynamics.
+
+```{r tbl-olley-pakes}
+#| tbl-cap: "Olley-Pakes decomposition of regulatedness"
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+```
+
+# Conclusion {#sec-conclusion}
+
+This paper has presented evidence on how regulatory accumulation affects economic growth by using state age as an instrument that affects regulatory accumulation only through institutional sclerosis. To justify the instrument’s validity, we leveraged Olson’s hypothesis of institutional sclerosis and further offered evidence that state age is in fact a relevant and exogenous instrument. Our main results indicate that a 10 percent increase in state-level regulatory restrictions will reduce real GDP growth by 0.37 percentage point. Results are robust to controlling for potential determinants of statehood and alternative specifications of treatment variables. Robustness tests also indicate that the results are robust to various specifications, not sensitive to outliers, and not driven by spurious correlation with geography. Furthermore, we offer some suggestive evidence that regulatory levels affect growth through the channel of interstate migration. Overall, our findings suggest that reducing the aggregate number of regulations at the state level can promote faster economic growth—a finding that is consistent with Coffey and McLaughlin; Coffey, McLaughlin, and Peretto; and Dawson and Seater but that represents the first to find this result at the state level in the United States.[^36]
+
+[^36]: Coffey and McLaughlin, “Regulation and Economic Growth”; Coffey et al., “Cumulative Cost of Regulations”; and Dawson and Seater, “Federal Regulation and Aggregate Economic Growth.”
+
+We should acknowledge that the accumulation of regulation does not always equate to an increase in stringency. Though RegData allows one to construct indices of regulatory stringency based on industry relevance, this can introduce considerable noise to the measure of regulatory variation. One workaround can be drawn from McLaughlin and Sherouse’s and McLaughlin and Warlick’s Federal Regulation and State Enterprise Index, which aggregates industry restrictions from federal regulations to the state level using a weighted rather than simple sum, where weights are a given industry’s contribution to a given state’s output.[^37] Future research should explore new measures of stringency that even better approximate a jurisdiction’s level of regulation, while distinguishing between different types of regulations.
+
+[^37]: Patrick A. McLaughlin and Oliver Sherouse, “The Impact of Federal Regulation on the 50 States” (Mercatus Center at George Mason University, 2016); Patrick A. McLaughlin and Hayden Warlick, “FRASE Index: A QuantGov Data Release,” QuantGov, 2020.
