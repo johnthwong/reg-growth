@@ -2,6 +2,8 @@
 trackdown.R
 bea_nipa_pull.R
 presentation
+.Rds
+.trackdown
 
 # History files
 .Rhistory
