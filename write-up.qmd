@@ -14,18 +14,7 @@ knitr:
 ---
 
 \begin{center}
-\uppercase{\LARGE The Causal Effect of Regulations on Economic Growth: Evidence from the US States}
-
-\Large Patrick A. McLaughlin\textsuperscript{*} \hspace{0.5cm} John T.H. Wong$^{\#}$
-
-
-\normalsize \textsuperscript{*}Corresponding author
-
-\textit{Email address}: econpatrick@gmail.com
-
-Hoover Institution, Stanford University \\ 434 Galvez Mall Stanford University, Stanford, CA 94305-6003 
-
-\normalsize $^{\#}$Mercatus Center at George Mason University \\ 3434 Washington Blvd 4th Floor, Arlington, VA 22201-2019
+\uppercase{\LARGE The Causal Effect of Regulations on Economic Growth: Evidence from \\ the US States}
 
 \end{center}
 
