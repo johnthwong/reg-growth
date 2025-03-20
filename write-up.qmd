@@ -14,29 +14,27 @@ knitr:
 ---
 
 \begin{center}
-\uppercase{\LARGE The Causal Effect of Regulations on Economic Growth: Evidence from the US States}
+\uppercase{\LARGE The Causal Effect of Regulations on Economic Growth: Evidence from \\ the US States}
 
 \Large Patrick A. McLaughlin\textsuperscript{*} \hspace{0.5cm} John T.H. Wong$^{\#}$
 
-
-\normalsize \textsuperscript{*}Corresponding author
-
-\textit{Email address}: econpatrick@gmail.com
-
-Hoover Institution, Stanford University \\ 434 Galvez Mall Stanford University, Stanford, CA 94305-6003 
-
-\normalsize $^{\#}$Mercatus Center at George Mason University \\ 3434 Washington Blvd 4th Floor, Arlington, VA 22201-2019
+March 1, 2025
 
 \end{center}
 
 
 > We exploit variation in state age across US states to estimate the effect of regulation on economic growth. The number of regulatory restrictions is measured using QuantGov’s State RegData. The identification strategy is based on institutional sclerosis, the hypothesis that stable societies become stagnant over time as interest groups seek to impose restrictions on the economy, slowing its capacity to adapt to changing conditions. We find that a higher level of regulation’s exogenous component significantly reduces GDP growth. Specifically, a 10 percent increase in the number of regulatory restrictions causes GDP growth to fall by 0.37 percentage point. 
 
-\vfill
-
 *Keywords*: regulation; deregulation; economic growth; RegData; regulatory accumulation; institutional sclerosis.
 
 *JEL Codes*: C26, L51, O470.
+
+\vfill
+
+\hrule
+\normalsize \textsuperscript{*}Research Fellow, Hoover Institution at Stanford University, econpatrick@gmail.com.
+
+\vspace{-5pt}$^{\#}$Policy Modeling Fellow, PolicyEngine, wongthjohn@gmail.com.
 
 
 \newpage
@@ -532,7 +530,7 @@ $$
 For the country as a whole, the regulatedness imposed by state-level restrictions is then (from here on, we suppress time subscripts):
 
 $$
-r = \frac{\mathrm E(R_{i})}{\mathrm E(N_{i})}
+r = \frac{\mathrm E(R_{i})}{\mathrm E(N_{i})} .
 $$
 
 We can then conduct Lippi and Perri's version of an Olley-Pakes decomposition:[^35]
@@ -557,7 +555,7 @@ $$
 If higher regulatedness leads to lower growth and state residents respond by migrating, it should be that $\mathrm{Cov}(r_i, n_i) < 0$. For ease of interpretation, we can decompose $r$ once more such that:
 
 $$
-r = \mathrm{Corr}(r_i, n_i) \sigma_{r_i} \sigma_{n_i} + \mathrm E (r_i)
+r = \mathrm{Corr}(r_i, n_i) \ \sigma_{r_i} \sigma_{n_i} + \mathrm E (r_i).
 $$
 
 @tbl-olley-pakes shows the results of this exercise. We can see that covariance is consistently negative for both years in our sample, which suggests that residents are distributed in the opposite direction of population-adjusted regulatory levels. Another way of interpreting the covariance is that aggregate state-level regulatedness is alleviated by interstate population movements. The correlation coefficients indicate that the two variables have a moderately negative correlation. Thus, it appears that the negative effects of restrictions on growth are driven in some substantial part by population dynamics.
