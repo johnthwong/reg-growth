@@ -30,7 +30,7 @@ Hoover Institution, Stanford University \\ 434 Galvez Mall Stanford University, 
 \end{center}
 
 
-> We exploit variation in stage age across US states to estimate the effect of regulation on economic growth. The number of regulatory restrictions is measured using QuantGov’s State RegData. The identification strategy is based on institutional sclerosis, the hypothesis that stable societies become stagnant over time as interest groups seek to impose restrictions on the economy, slowing its capacity to adapt to changing conditions. We find that a higher level of regulation’s exogenous component significantly reduces GDP growth. Specifically, a 10 percent increase in the number of regulatory restrictions causes GDP growth to fall by 0.37 percentage point. 
+> We exploit variation in state age across US states to estimate the effect of regulation on economic growth. The number of regulatory restrictions is measured using QuantGov’s State RegData. The identification strategy is based on institutional sclerosis, the hypothesis that stable societies become stagnant over time as interest groups seek to impose restrictions on the economy, slowing its capacity to adapt to changing conditions. We find that a higher level of regulation’s exogenous component significantly reduces GDP growth. Specifically, a 10 percent increase in the number of regulatory restrictions causes GDP growth to fall by 0.37 percentage point. 
 
 \vfill
 
@@ -385,7 +385,7 @@ We compute the average continuous-compounding growth rate from the earliest year
 
 # Robustness {#sec-robust}
 
-## Stage age specification
+## State age specification
 
 In this section, we discuss results obtained under alternative specifications of state age, shown in @tbl-tsls-2. Generally, the results are robust. Columns 1 and 2 respectively show the first- and second-stage results when year fixed effects are included. The motivation here is that state age ($t - T_i$) is a linear equation of time. While we did not explicitly impose any structure on the error term $\eta_{it}$ with respect to $\eta_{it-1}$, state age would correlate with the errors in the case where they are autoregressive. Only one factor is added since $t = 2023, 2024$. While the magnitude falls in the first-stage, second-stage results are essentially indistinguishable for @tbl-tsls Column 5. Following the same motivation, results in Columns 3 and 4 are estimated with $T_i$ as an instrument. Since $T_i$ is time-invariant, the first-stage predictions becomes a within-state mean of $\ln R_t$. Either specifications produce the same result.
 
