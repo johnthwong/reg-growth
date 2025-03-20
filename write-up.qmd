@@ -14,29 +14,27 @@ knitr:
 ---
 
 \begin{center}
-\uppercase{\LARGE The Causal Effect of Regulations on Economic Growth: Evidence from the US States}
+\uppercase{\LARGE The Causal Effect of Regulations on Economic Growth: Evidence from \\ the US States}
 
 \Large Patrick A. McLaughlin\textsuperscript{*} \hspace{0.5cm} John T.H. Wong$^{\#}$
 
-
-\normalsize \textsuperscript{*}Corresponding author
-
-\textit{Email address}: econpatrick@gmail.com
-
-Hoover Institution, Stanford University \\ 434 Galvez Mall Stanford University, Stanford, CA 94305-6003 
-
-\normalsize $^{\#}$Mercatus Center at George Mason University \\ 3434 Washington Blvd 4th Floor, Arlington, VA 22201-2019
+March 1, 2025
 
 \end{center}
 
 
 > We exploit variation in state age across US states to estimate the effect of regulation on economic growth. The number of regulatory restrictions is measured using QuantGov’s State RegData. The identification strategy is based on institutional sclerosis, the hypothesis that stable societies become stagnant over time as interest groups seek to impose restrictions on the economy, slowing its capacity to adapt to changing conditions. We find that a higher level of regulation’s exogenous component significantly reduces GDP growth. Specifically, a 10 percent increase in the number of regulatory restrictions causes GDP growth to fall by 0.37 percentage point. 
 
-\vfill
-
 *Keywords*: regulation; deregulation; economic growth; RegData; regulatory accumulation; institutional sclerosis.
 
 *JEL Codes*: C26, L51, O470.
+
+\vfill
+
+\hrule
+\normalsize \textsuperscript{*}Research Fellow, Hoover Institution at Stanford University, econpatrick@gmail.com.
+
+\vspace{-5pt}$^{\#}$Policy Modeling Fellow, PolicyEngine, wongthjohn@gmail.com.
 
 
 \newpage
