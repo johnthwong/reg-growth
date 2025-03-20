@@ -530,7 +530,7 @@ $$
 For the country as a whole, the regulatedness imposed by state-level restrictions is then (from here on, we suppress time subscripts):
 
 $$
-r = \frac{\mathrm E(R_{i})}{\mathrm E(N_{i})}
+r = \frac{\mathrm E(R_{i})}{\mathrm E(N_{i})} .
 $$
 
 We can then conduct Lippi and Perri's version of an Olley-Pakes decomposition:[^35]
@@ -555,7 +555,7 @@ $$
 If higher regulatedness leads to lower growth and state residents respond by migrating, it should be that $\mathrm{Cov}(r_i, n_i) < 0$. For ease of interpretation, we can decompose $r$ once more such that:
 
 $$
-r = \mathrm{Corr}(r_i, n_i) \sigma_{r_i} \sigma_{n_i} + \mathrm E (r_i)
+r = \mathrm{Corr}(r_i, n_i) \ \sigma_{r_i} \sigma_{n_i} + \mathrm E (r_i).
 $$
 
 @tbl-olley-pakes shows the results of this exercise. We can see that covariance is consistently negative for both years in our sample, which suggests that residents are distributed in the opposite direction of population-adjusted regulatory levels. Another way of interpreting the covariance is that aggregate state-level regulatedness is alleviated by interstate population movements. The correlation coefficients indicate that the two variables have a moderately negative correlation. Thus, it appears that the negative effects of restrictions on growth are driven in some substantial part by population dynamics.
