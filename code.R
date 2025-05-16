@@ -582,8 +582,6 @@ texreg::texreg(
     "$\\%\\Delta$GDP" = 5
   ),
   digits = 4,
-  include.rsquared = FALSE,
-  include.adjrs = FALSE,
   float.pos = "H",
   l = list(lm15, lm34, iv28, lm16, iv30)
 )
